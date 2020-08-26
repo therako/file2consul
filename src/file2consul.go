@@ -8,8 +8,8 @@ import (
 	"bufio"
 	"fmt"
 
-	"io/ioutil"
 	"github.com/therako/file2consul/src/jutil"
+	"io/ioutil"
 
 	//"net/http"
 	"os"
@@ -117,14 +117,14 @@ func loadFileAsDict(inFiName string, target map[string]string, pargs *jutil.Pars
 }
 
 func selfInterpolate(dict map[string]string) {
-    pargs := jutil.CreateArgsFromMap(dict)
-    for key, value := range dict {
-        newKey := pargs.Interpolate(key)
-        dict[newKey] = pargs.Interpolate(value)
-        if (key != newKey) {
-            delete(dict, key)
-        }
-    }
+	pargs := jutil.CreateArgsFromMap(dict)
+	for key, value := range dict {
+		newKey := pargs.Interpolate(key)
+		dict[newKey] = pargs.Interpolate(value)
+		if key != newKey {
+			delete(dict, key)
+		}
+	}
 }
 
 func loadInFiles(inPaths []string, pargs *jutil.ParsedCommandArgs, doInterpolate bool) map[string]string {
@@ -277,8 +277,8 @@ func main() {
 		fmt.Println("pathDelim=", pathDelim, " inPaths=", inPaths, " consul server URI=", serverURIs, " cacheFiName=", cacheFiName)
 	}
 	inDict := loadInFiles(inPaths, pargs, true)
-	if (pargs.Exists("selfinterpolate")) {
-	    selfInterpolate(inDict)
+	if pargs.Exists("selfinterpolate") {
+		selfInterpolate(inDict)
 	}
 	if verboseFlg {
 		fmt.Println("inDict=", inDict)

@@ -118,13 +118,12 @@ func CreateArgsFromMap(args map[string]string) *ParsedCommandArgs {
 	tout := new(ParsedCommandArgs)
 	tout.PositArgs = make([]string, 1)
 	tout.NamedInt = make(map[string]int)
-    tout.NamedStr = args
+	tout.NamedStr = args
 	tout.Recurse = true
 	tout.ExeName = "CreateArgsFromMap"
 	tout.PositArgs[0] = tout.ExeName
 	return tout
 }
-
 
 func (parg *ParsedCommandArgs) String() string {
 	var sbb bytes.Buffer
@@ -277,16 +276,16 @@ func (parg *ParsedCommandArgs) Interpolate(str string) string {
 		// or add it back in with the {} protecting it
 		// TODO: Add lookup from enviornment variable
 		//  if do not find it in the command line parms
-        val, found := parg.NamedStr[aMatchStr]
-        var lookVal string
-		if (found) {
-		    if (parg.Recurse) {
-		        lookVal = parg.Interpolate(val)
-		    } else {
-		        lookVal = val
-		    }
+		val, found := parg.NamedStr[aMatchStr]
+		var lookVal string
+		if found {
+			if parg.Recurse {
+				lookVal = parg.Interpolate(val)
+			} else {
+				lookVal = val
+			}
 		} else {
-		    lookVal = "{"+str[start:end]+"}"
+			lookVal = "{" + str[start:end] + "}"
 		}
 		//fmt.Printf("matchStr=%s  lookVal=%s\n", aMatchStr, lookVal)
 		sb = append(sb, lookVal)
