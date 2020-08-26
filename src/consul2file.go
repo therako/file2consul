@@ -12,7 +12,7 @@ import (
 	"fmt"
 
 	//"io/ioutil"
-	"jutil"
+	"github.com/therako/file2consul/src/jutil"
 
 	//"net/http"
 	"os"

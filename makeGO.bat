@@ -1,4 +1,3 @@
-call setGOEnv
 
 rm *.exe
 rm *.exe~
